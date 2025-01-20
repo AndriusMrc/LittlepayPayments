@@ -8,7 +8,7 @@
     <artifactId>LittlepayPayments</artifactId>
     <version>1.0.0</version>
     <name>LittlepayPayments</name>
-    <description>LittlepayPayments is a job interview application designed to calculate travel charges</description>
+    <description>LittlepayPayments is a job interview application designed to calculate trips</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
