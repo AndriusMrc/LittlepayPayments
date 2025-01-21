@@ -12,6 +12,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.littlepaypayments.DataFormatter.formatChargeAmount;
+
 public class TripProcessor {
     private final Map<String, Map<String, BigDecimal>> tripCosts;
 
@@ -115,10 +117,6 @@ public class TripProcessor {
 
     private static int getDurationSecs(LocalDateTime start, LocalDateTime end) {
         return (int) start.until(end, ChronoUnit.SECONDS);
-    }
-
-    private static String formatChargeAmount(BigDecimal amount) {
-        return "$" + amount.setScale(2, RoundingMode.CEILING);
     }
 
 }

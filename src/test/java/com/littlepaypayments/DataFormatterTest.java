@@ -3,10 +3,12 @@ package com.littlepaypayments;
 import com.littlepaypayments.model.TapType;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static com.littlepaypayments.DataFormatter.formatChargeAmount;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DataFormatterTest {
@@ -72,6 +74,12 @@ class DataFormatterTest {
         assertThrows(IllegalArgumentException.class, () -> {
             DataFormatter.getTapType(headerToDataMap, "TAPTYPE");
         });
+    }
+
+    @Test
+    void formatChargeAmountAdds$BeforeAmount() {
+        String formattedAmount = formatChargeAmount(BigDecimal.valueOf(10.55));
+        assertEquals("$10.55", formattedAmount);
     }
 
 }

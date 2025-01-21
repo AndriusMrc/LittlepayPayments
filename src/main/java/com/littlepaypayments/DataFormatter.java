@@ -2,6 +2,8 @@ package com.littlepaypayments;
 
 import com.littlepaypayments.model.TapType;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -28,5 +30,9 @@ public class DataFormatter {
 
     public static TapType getTapType(Map<String, String> headerToDataMap, String key) {
         return TapType.valueOf(getStringValue(headerToDataMap, key).toUpperCase());
+    }
+
+    public static String formatChargeAmount(BigDecimal amount) {
+        return "$" + amount.setScale(2, RoundingMode.CEILING);
     }
 }
