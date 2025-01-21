@@ -15,11 +15,11 @@ in the [trips.csv](src/main/resources/trips.csv) file under the same resources d
 - Maven [recommended to use `./mvnw`]
 
 ### How to run tests
-- Go to projects directory `.LittlepayTravelCharge`
+- Go to projects directory `.LittlepayPayments`
 - In Terminal, run `./mvnw clean install` or `./mvnw test`
 
 ### How to run application
-- Go to projects directory `.LittlePayTravelCharge`
+- Go to projects directory `.LittlepayPayments`
 - In Terminal, run `./mvnw clean install`
 - In Terminal, run `./mvnw exec:java`\
 Note: The [trips.csv](src/main/resources/trips.csv) file has already been committed. If you run the application 
