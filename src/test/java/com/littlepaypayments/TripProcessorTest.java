@@ -4,22 +4,20 @@ import com.littlepaypayments.model.Tap;
 import com.littlepaypayments.model.TapType;
 import com.littlepaypayments.model.Trip;
 import com.littlepaypayments.model.TripStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TripProcessorTest {
-    private TripProcessor tripProcessor;
 
-    @BeforeEach
-    void setUp() {
-        tripProcessor = new TripProcessor();
-    }
+    private final TripProcessor tripProcessor = new TripProcessor(mockedTripCosts());
 
     @Test
     void processTripsShouldReturnCompletedTrip() {
@@ -230,6 +228,14 @@ class TripProcessorTest {
     void processTripsShouldReturnNoTripsWhenNoTaps() {
         List<Trip> trips = tripProcessor.processTrips(List.of());
         assertEquals(0, trips.size());
+    }
+
+    private Map<String, Map<String, BigDecimal>> mockedTripCosts() {
+        Map<String, Map<String, BigDecimal>> tripCosts = new HashMap<>();
+        tripCosts.put("Stop1", Map.of("Stop2", BigDecimal.valueOf(3.25), "Stop3", BigDecimal.valueOf(7.30)));
+        tripCosts.put("Stop2", Map.of("Stop1", BigDecimal.valueOf(3.25), "Stop3", BigDecimal.valueOf(5.50)));
+        tripCosts.put("Stop3", Map.of("Stop1", BigDecimal.valueOf(7.30), "Stop2", BigDecimal.valueOf(5.50)));
+        return tripCosts;
     }
 
 }

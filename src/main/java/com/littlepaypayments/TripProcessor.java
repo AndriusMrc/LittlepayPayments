@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public class TripProcessor {
     private final Map<String, Map<String, BigDecimal>> tripCosts;
 
-    public TripProcessor() {
-        this.tripCosts = initializeTripCosts();
+    public TripProcessor(Map<String, Map<String, BigDecimal>> tripCosts) {
+        this.tripCosts = tripCosts;
     }
 
     public List<Trip> processTrips(List<Tap> taps) {
@@ -119,14 +119,6 @@ public class TripProcessor {
 
     private static String formatChargeAmount(BigDecimal amount) {
         return "$" + amount.setScale(2, RoundingMode.CEILING);
-    }
-
-    private Map<String, Map<String, BigDecimal>> initializeTripCosts() {
-        Map<String, Map<String, BigDecimal>> tripCosts = new HashMap<>();
-        tripCosts.put("Stop1", Map.of("Stop2", BigDecimal.valueOf(3.25), "Stop3", BigDecimal.valueOf(7.30)));
-        tripCosts.put("Stop2", Map.of("Stop1", BigDecimal.valueOf(3.25), "Stop3", BigDecimal.valueOf(5.50)));
-        tripCosts.put("Stop3", Map.of("Stop1", BigDecimal.valueOf(7.30), "Stop2", BigDecimal.valueOf(5.50)));
-        return tripCosts;
     }
 
 }
