@@ -2,7 +2,6 @@ package com.littlepaypayments;
 
 import com.littlepaypayments.model.Tap;
 import com.littlepaypayments.model.TapType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -17,12 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CsvReaderTest {
 
-    private CsvReader csvReader;
-
-    @BeforeEach
-    void setUp() {
-        csvReader = new CsvReader();
-    }
+    private final CsvReader csvReader = new CsvReader();
 
     @Test
     void readTapsShouldReturnListOfTaps() throws URISyntaxException, IOException {
