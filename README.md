@@ -6,7 +6,7 @@
 
 ### How to run tests
 - Go to projects directory `.LittlepayTravelCharge`
-- In Terminal, run `./mvnw clean install`
+- In Terminal, run `./mvnw clean install` or `./mvnw test`
 
 ### How to run application
 - Go to projects directory `.LittlePayTravelCharge`
