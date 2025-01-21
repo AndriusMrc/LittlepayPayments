@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.littlepaypayments.CsvWriter.TRIPS_CSV_FILE_HEADERS;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CsvWriterTest {
     private final CsvWriter csvWriter = new CsvWriter();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     @Test
     void writeTripsCreatesCsvFileWithTripInformation() throws IOException {
@@ -55,7 +57,7 @@ class CsvWriterTest {
         List<Trip> trips = List.of(trip1, trip2);
 
         // Act
-        csvWriter.writeTrips(tempTripsFile.getAbsolutePath(), trips);
+        csvWriter.writeTrips(tempTripsFile.getAbsolutePath(), trips, DATE_TIME_FORMATTER);
 
         // Validate results
         try(Reader reader = new FileReader(tempTripsFile);
@@ -69,8 +71,8 @@ class CsvWriterTest {
             assertEquals(2, records.size());
 
             CSVRecord trip1Record = records.get(0);
-            assertEquals("2025-01-21T08:00", trip1Record.get("Started"));
-            assertEquals("2025-01-21T08:05", trip1Record.get("Finished"));
+            assertEquals("21-01-2025 08:00:00", trip1Record.get("Started"));
+            assertEquals("21-01-2025 08:05:00", trip1Record.get("Finished"));
             assertEquals("900", trip1Record.get("DurationSecs"));
             assertEquals("Stop1", trip1Record.get("FromStopId"));
             assertEquals("Stop2", trip1Record.get("ToStopId"));
@@ -81,8 +83,8 @@ class CsvWriterTest {
             assertEquals(TripStatus.COMPLETED.name(), trip1Record.get("Status"));
 
             CSVRecord trip2Record = records.get(1);
-            assertEquals("2025-01-22T09:00", trip2Record.get("Started"));
-            assertEquals("2025-01-22T10:05", trip2Record.get("Finished"));
+            assertEquals("22-01-2025 09:00:00", trip2Record.get("Started"));
+            assertEquals("22-01-2025 10:05:00", trip2Record.get("Finished"));
             assertEquals("600", trip2Record.get("DurationSecs"));
             assertEquals("Stop3", trip2Record.get("FromStopId"));
             assertEquals("Stop1", trip2Record.get("ToStopId"));
@@ -101,7 +103,7 @@ class CsvWriterTest {
         tempTripsFile.deleteOnExit();
 
         // Act
-        csvWriter.writeTrips(tempTripsFile.getAbsolutePath(), List.of());
+        csvWriter.writeTrips(tempTripsFile.getAbsolutePath(), List.of(), DATE_TIME_FORMATTER);
 
         // Validate results
         try(Reader reader = new FileReader(tempTripsFile);

@@ -90,7 +90,11 @@ public class TripProcessor {
                 stopIdWithMaxCost = entry.getKey();
             }
         }
-        return buildTrip(tap, stopIdWithMaxCost, null, maxCost, TripStatus.INCOMPLETE);
+
+        // Calculate the finished time as the end of the day (23:59:59)
+        LocalDateTime finishedTime = tap.getDateTimeUTC().toLocalDate().atTime(23, 59, 59);
+
+        return buildTrip(tap, stopIdWithMaxCost, finishedTime, maxCost, TripStatus.INCOMPLETE);
     }
 
     private Trip buildTrip(Tap tap, String finishStopId,

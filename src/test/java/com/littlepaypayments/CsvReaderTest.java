@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CsvReaderTest {
 
     private final CsvReader csvReader = new CsvReader();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     @Test
     void readTapsShouldReturnListOfTaps() throws URISyntaxException, IOException {
@@ -24,7 +26,7 @@ class CsvReaderTest {
                 .toURI())
                 .toFile();
 
-        List<Tap> taps = csvReader.readTaps(file.getAbsolutePath());
+        List<Tap> taps = csvReader.readTaps(file.getAbsolutePath(), DATE_TIME_FORMATTER);
 
         assertEquals(2, taps.size());
         Tap tap1 = taps.get(0);
@@ -52,7 +54,7 @@ class CsvReaderTest {
                 .toURI())
                 .toFile();
 
-        List<Tap> taps = csvReader.readTaps(file.getAbsolutePath());
+        List<Tap> taps = csvReader.readTaps(file.getAbsolutePath(), DATE_TIME_FORMATTER);
 
         assertEquals(0, taps.size());
     }

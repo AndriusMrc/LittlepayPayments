@@ -77,8 +77,8 @@ class TripProcessorTest {
         assertEquals(1, trips.size());
         Trip trip = trips.getFirst();
         assertEquals(LocalDateTime.parse("2025-01-21T08:00"), trip.getStarted());
-        assertNull(trip.getFinished());
-        assertEquals(0, trip.getDurationSecs());
+        assertEquals(LocalDateTime.parse("2025-01-21T23:59:59"), trip.getFinished());
+        assertEquals(57599, trip.getDurationSecs());
         assertEquals("Stop1", trip.getFromStopId());
         assertEquals("Stop3", trip.getToStopId());
         assertEquals("$7.30", trip.getChargeAmount());
@@ -115,8 +115,8 @@ class TripProcessorTest {
         assertEquals(2, trips.size());
         Trip trip1 = trips.get(0);
         assertEquals(LocalDateTime.parse("2025-01-21T08:15"), trip1.getStarted());
-        assertNull(trip1.getFinished());
-        assertEquals(0, trip1.getDurationSecs());
+        assertEquals(LocalDateTime.parse("2025-01-21T23:59:59"), trip1.getFinished());
+        assertEquals(56699, trip1.getDurationSecs());
         assertEquals("Stop2", trip1.getFromStopId());
         assertEquals("Stop3", trip1.getToStopId());
         assertEquals("$5.50", trip1.getChargeAmount());
@@ -127,8 +127,8 @@ class TripProcessorTest {
 
         Trip trip2 = trips.get(1);
         assertEquals(LocalDateTime.parse("2025-01-21T08:00"), trip2.getStarted());
-        assertNull(trip2.getFinished());
-        assertEquals(0, trip2.getDurationSecs());
+        assertEquals(LocalDateTime.parse("2025-01-21T23:59:59"), trip2.getFinished());
+        assertEquals(57599, trip2.getDurationSecs());
         assertEquals("Stop3", trip2.getFromStopId());
         assertEquals("Stop1", trip2.getToStopId());
         assertEquals("$7.30", trip2.getChargeAmount());
@@ -165,8 +165,8 @@ class TripProcessorTest {
         assertEquals(2, trips.size());
         Trip trip1 = trips.get(0);
         assertEquals(LocalDateTime.parse("2025-01-21T08:15"), trip1.getStarted());
-        assertNull(trip1.getFinished());
-        assertEquals(0, trip1.getDurationSecs());
+        assertEquals(LocalDateTime.parse("2025-01-21T23:59:59"), trip1.getFinished());
+        assertEquals(56699, trip1.getDurationSecs());
         assertEquals("Stop2", trip1.getFromStopId());
         assertEquals("Stop3", trip1.getToStopId());
         assertEquals("$5.50", trip1.getChargeAmount());
@@ -177,8 +177,8 @@ class TripProcessorTest {
 
         Trip trip2 = trips.get(1);
         assertEquals(LocalDateTime.parse("2025-01-21T08:00"), trip2.getStarted());
-        assertNull(trip2.getFinished());
-        assertEquals(0, trip2.getDurationSecs());
+        assertEquals(LocalDateTime.parse("2025-01-21T23:59:59"), trip2.getFinished());
+        assertEquals(57599, trip2.getDurationSecs());
         assertEquals("Stop3", trip2.getFromStopId());
         assertEquals("Stop1", trip2.getToStopId());
         assertEquals("$7.30", trip2.getChargeAmount());

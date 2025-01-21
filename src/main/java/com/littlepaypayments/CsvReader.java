@@ -17,9 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CsvReader {
-    private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    public List<Tap> readTaps(String filePath) throws IOException {
+    public List<Tap> readTaps(String filePath, DateTimeFormatter dateTimeFormatter) throws IOException {
         List<Tap> taps = new ArrayList<>();
 
         try(Reader reader = new FileReader(filePath);
@@ -30,14 +29,14 @@ public class CsvReader {
                     .parse(reader)) {
 
             for (CSVRecord record : csvParser) {
-                Tap tap = createTap(record);
+                Tap tap = createTap(record, dateTimeFormatter);
                 taps.add(tap);
             }
         }
         return taps;
     }
 
-    private Tap createTap(CSVRecord record) {
+    private Tap createTap(CSVRecord record, DateTimeFormatter dateTimeFormatter) {
         // Remove leading and trailing spaces for headers and data
         Map<String, String> trimmedRecord = record.toMap().entrySet().stream()
                 .collect(Collectors.toMap(
@@ -46,7 +45,7 @@ public class CsvReader {
 
         return Tap.builder()
                 .id(Long.valueOf(trimmedRecord.get("ID")))
-                .dateTimeUTC(LocalDateTime.parse(trimmedRecord.get("DateTimeUTC"), DATE_TIME_FORMATTER))
+                .dateTimeUTC(LocalDateTime.parse(trimmedRecord.get("DateTimeUTC"), dateTimeFormatter))
                 .tapType(TapType.valueOf(trimmedRecord.get("TapType").toUpperCase()))
                 .stopId(trimmedRecord.get("StopId"))
                 .companyId(trimmedRecord.get("CompanyId"))
