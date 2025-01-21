@@ -1,5 +1,15 @@
 # LittlepayPayments Application
 
+This application simulates a system for tracking and calculating charges for bus trips based on 
+passenger "tap on" and "tap off" actions.\
+When passengers board a bus, they "tap on" by scanning their credit card at a bus stop. 
+When they get off, they "tap off" at another stop. The system processes these taps, determines the fare for each trip, 
+and generates a summary of completed, cancelled, and incomplete trips.
+
+All tap records are provided in the [taps.csv](src/main/resources/taps.csv) file, which can be found under 
+the resources directory. When the application is run, the generated trip summary will be saved 
+in the [trips.csv](src/main/resources/trips.csv) file under the same resources directory.
+
 ### Prerequisites
 - Java 21 or newer
 - Maven [recommended to use `./mvnw`]
@@ -11,11 +21,15 @@
 ### How to run application
 - Go to projects directory `.LittlePayTravelCharge`
 - In Terminal, run `./mvnw clean install`
-- In Terminal, run `./mvnw exec:java`
+- In Terminal, run `./mvnw exec:java`\
+Note: The [trips.csv](src/main/resources/trips.csv) file has already been committed. If you run the application 
+the file will be regenerated.
 
 ### Assumptions
-
-### Additional functionalities
+- As mentioned in the problem description, I assumed that the input file will be well-formed and not missing data.
+- Based on the example file data, I made an assumption that passenger can forget to tap on but taps off at another station.
+- I'm not currently checking the gap between the tap-on and tap-off events, but this should be taken into consideration 
+    in a real system.
 
 ### Design decisions and trade-offs
 - When a trip is INCOMPLETE, I made the decision to set the finished time to the end of the day, 
