@@ -27,6 +27,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
         </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.7</version>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>

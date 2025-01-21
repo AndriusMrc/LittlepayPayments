@@ -38,6 +38,8 @@ public class CsvReader {
     private Tap createTap(CSVRecord record, DateTimeFormatter dateTimeFormatter) {
         Map<String, String> cleanedRecord = cleanHeadersAndData(record.toMap());
 
+        DataValidator.validateRecord(cleanedRecord, dateTimeFormatter);
+
         return Tap.builder()
                 .id(Long.valueOf(getStringValue(cleanedRecord, "ID")))
                 .dateTimeUTC(getLocalDateTime(cleanedRecord, "DateTimeUTC", dateTimeFormatter))
