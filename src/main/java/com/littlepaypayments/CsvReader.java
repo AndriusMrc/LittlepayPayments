@@ -37,20 +37,37 @@ public class CsvReader {
     }
 
     private Tap createTap(CSVRecord record, DateTimeFormatter dateTimeFormatter) {
-        // Remove leading and trailing spaces for headers and data
-        Map<String, String> trimmedRecord = record.toMap().entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey().trim(),
-                        entry -> entry.getValue().trim()));
+        Map<String, String> cleanedRecord = cleanRecord(record);
 
         return Tap.builder()
-                .id(Long.valueOf(trimmedRecord.get("ID")))
-                .dateTimeUTC(LocalDateTime.parse(trimmedRecord.get("DateTimeUTC"), dateTimeFormatter))
-                .tapType(TapType.valueOf(trimmedRecord.get("TapType").toUpperCase()))
-                .stopId(trimmedRecord.get("StopId"))
-                .companyId(trimmedRecord.get("CompanyId"))
-                .busId(trimmedRecord.get("BusID"))
-                .pan(trimmedRecord.get("PAN"))
+                .id(Long.valueOf(getStringValue(cleanedRecord, "ID")))
+                .dateTimeUTC(getLocalDateTime(cleanedRecord, "DateTimeUTC", dateTimeFormatter))
+                .tapType(getTapType(cleanedRecord, "TapType"))
+                .stopId(getStringValue(cleanedRecord, "StopId"))
+                .companyId(getStringValue(cleanedRecord, "CompanyId"))
+                .busId(getStringValue(cleanedRecord, "BusID"))
+                .pan(getStringValue(cleanedRecord, "PAN"))
                 .build();
+    }
+
+    // Remove leading and trailing spaces for headers and data
+    // Making all headers uppercase
+    private Map<String, String> cleanRecord(CSVRecord record) {
+        return record.toMap().entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().trim().toUpperCase(),
+                        entry -> entry.getValue().trim()));
+    }
+
+    private String getStringValue(Map<String, String> cleanedRecord, String key) {
+        return cleanedRecord.get(key.toUpperCase());
+    }
+
+    private LocalDateTime getLocalDateTime(Map<String, String> cleanedRecord, String key, DateTimeFormatter formatter) {
+        return LocalDateTime.parse(getStringValue(cleanedRecord, key), formatter);
+    }
+
+    private TapType getTapType(Map<String, String> cleanedRecord, String key) {
+        return TapType.valueOf(getStringValue(cleanedRecord, key).toUpperCase());
     }
 }

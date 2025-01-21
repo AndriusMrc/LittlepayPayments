@@ -21,6 +21,8 @@
 - When a trip is INCOMPLETE, I made the decision to set the finished time to the end of the day, 
     instead of passing null. I believe that, in combination with the status, it clearly indicates that the trip 
     was not completed. This approach simplifies the code and eliminates doubts about missing data.
+- Before building the Taps, all headers in the CSV file are converted to uppercase to ensure that the application
+    does not fail if the header letters are changed to lowercase or uppercase.
 - Added Maven Wrapper to eliminate the need for developers to set it up themselves and to ensure consistency by using the same Maven version.
 
 ### If I had more time
