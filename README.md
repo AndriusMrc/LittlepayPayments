@@ -50,3 +50,4 @@ the file will be regenerated.
 - Add better data validation
 - Add logging
 - Add code hygienic and linting checks
+- I would change project's name :)
