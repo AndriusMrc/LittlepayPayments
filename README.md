@@ -29,12 +29,15 @@ the file will be regenerated.
 - As mentioned in the problem description, I assumed that the input file will be well-formed and not missing data.
 - Based on the example file data, I made an assumption that passenger can forget to tap on but taps off at another station.
 - Based on the example file data, I made an assumption that tap IDs are numbers.
-- I'm not currently checking the gap between the tap-on and tap-off events, but this should be taken into consideration 
-    in a real system.
+- I'm not currently validating whether there is an unreasonable gap between the tap on and tap off events
+    such as a duration exceeding a day. However, this should be considered in a real system.
 
 ### Design decisions and trade-offs
 - Added data validation logic to check if PANs in the input file are valid [passes Luhn algorithm check]
     and also check if DateTimeUTC values are valid.
+    I also decided to throw a runtime exception rather than ignore the entry when validation fails. 
+    I chose this approach because invalid data could impact other records. For example, if a tap on event is ignored, 
+    the corresponding tap off event would incorrectly appear as an incomplete trip.
 - When a trip is INCOMPLETE, I made the decision to set the finished time to the end of the day, 
     instead of passing null. I believe that, in combination with the status, it clearly indicates that the trip 
     was not completed. This approach simplifies the code and eliminates doubts about missing data.
@@ -43,3 +46,7 @@ the file will be regenerated.
 - Added Maven Wrapper to eliminate the need for developers to set it up themselves and to ensure consistency by using the same Maven version.
 
 ### If I had more time
+- I would think of a better way to pass input csv files
+- Add better data validation
+- Add logging
+- Add code hygienic and linting checks
